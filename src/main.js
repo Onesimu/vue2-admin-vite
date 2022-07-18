@@ -8,25 +8,24 @@ import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 
 import '@/styles/index.scss' // global css
 
-import App from './App'
+import App from './App.vue'
 import store from './store'
 import router from './router'
 
 import '@/icons' // icon
+import 'virtual:svg-icons-register' // svg-register
 import '@/permission' // permission control
 
 /**
  * If you don't want to use mock-server
- * you want to use MockJs for mock api
- * you can execute: mockXHR()
+ * you want to use setupProdMockServer for mock api
+ * you can execute: setupProdMockServer()
  *
  * Currently MockJs will be used in the production environment,
  * please remove it before going online ! ! !
  */
-if (process.env.NODE_ENV === 'production') {
-  const { mockXHR } = require('../mock')
-  mockXHR()
-}
+import { setupProdMockServer } from '@/utils/mockProdServer'
+setupProdMockServer(import.meta.env.VITE_APP_BASE_API)
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })

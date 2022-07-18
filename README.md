@@ -1,5 +1,7 @@
 # vite-admin-template
 
+> 使用了misaka10032的[项目模板](https://gitee.com/mi-sa-ka10032/vite-element-template), 升级了依赖包版本, 添加了旧浏览器的支持插件.
+
 > 这是一个极简的 vite vue admin 管理后台。它只包含了 Element UI & axios & iconfont & permission control & lint，这些搭建后台必要的东西。
 
 > **该项目改编自`panjiachen`的vue-element-template，面向技术栈和UI框架为Vue2和Element UI，但是无法忍受`vue-cli`的开发速度的开发人员。**

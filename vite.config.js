@@ -1,7 +1,9 @@
 import { resolve } from 'path'
 import { defineConfig, loadEnv } from 'vite'
-import { createVuePlugin } from 'vite-plugin-vue2'
-import vueJsx from '@vitejs/plugin-vue-jsx'
+// import { createVuePlugin } from 'vite-plugin-vue2'
+import vue from '@vitejs/plugin-vue2'
+// import vueJsx from '@vitejs/plugin-vue-jsx'
+import vueJsx from '@vitejs/plugin-vue2-jsx'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import compressPlugin from 'vite-plugin-compression'
 
@@ -40,7 +42,9 @@ export default ({ mode }) => {
   const port = loadEnv(mode, process.cwd()).PORT || 9528 // dev port
   return defineConfig({
     plugins: [
-      createVuePlugin(),
+      // createVuePlugin(),
+      // vueJsx(),
+      vue(),
       vueJsx(),
       createSvgIconsPlugin({
         iconDirs: [resolve(process.cwd(), 'src/icons/svg')],

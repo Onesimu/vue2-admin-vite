@@ -15,11 +15,6 @@
   "dependencies": {
     "axios": "^0.27.2",
     "core-js": "^3.23.5",
-    "d2-crud-plus": "^2.17.9",
-    "d2-crud-x": "^2.17.9",
-    "d2p-extends": "^2.17.9",
-    "echarts": "^5.3.3",
-    "element-china-area-data": "^5.0.2",
     "element-ui": "^2.15.9",
     "js-cookie": "^3.0.1",
     "normalize.css": "^8.0.1",

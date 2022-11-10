@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-input v-model="filterText" placeholder="Filter keyword" style="margin-bottom:30px;" />
+    <el-input v-model="filterText" placeholder="Filter keyword" class="e1" />
 
     <el-tree
       ref="tree2"
@@ -76,3 +76,6 @@ export default {
 }
 </script>
 
+<style scoped>
+  .e1 { mb: 30; f: n; w: a; }
+</style>

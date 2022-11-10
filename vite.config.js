@@ -5,6 +5,7 @@ import vueJsx from '@vitejs/plugin-vue2-jsx'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import compressPlugin from 'vite-plugin-compression'
 // import legacy from '@vitejs/plugin-legacy'
+import qcs from './dev/qcs/index.js'
 
 // compress: 'gzip' | 'brotli' | 'none'
 function configCompressPlugin(isBuild, compress) {
@@ -41,8 +42,6 @@ export default ({ mode }) => {
   const port = loadEnv(mode, process.cwd()).PORT || 3000 // dev port
   return defineConfig({
     plugins: [
-      // createVuePlugin(),
-      // vueJsx(),
       vue(),
       vueJsx(),
       createSvgIconsPlugin({
@@ -65,6 +64,11 @@ export default ({ mode }) => {
       port,
       // open: true,
       hmr: { overlay: false }
+    },
+    css: {
+      postcss: {
+        plugins: [qcs]
+      }
     },
     build: {
       outDir: 'dist',

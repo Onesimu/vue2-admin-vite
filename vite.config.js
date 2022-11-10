@@ -44,9 +44,9 @@ export default ({ mode }) => {
   const port = loadEnv(mode, process.cwd()).PORT || 3000 // dev port
   return defineConfig({
     plugins: [
+      ls(),
       vue(),
       vueJsx(),
-      ls(),
       createSvgIconsPlugin({
         iconDirs: [resolve(process.cwd(), 'src/icons/svg')],
         symbolId: 'icon-[dir]-[name]'

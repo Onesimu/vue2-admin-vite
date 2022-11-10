@@ -19,14 +19,17 @@ module.exports = (options = {}) => {
                 options = { filename: id, outputFilename: id.replace(/\.ls$/,'.js'), ...options }
                 const cod = code.replace(/^\s*[\/]{2}/gm, '#').e(/^import .+/gm, '``$&``').e(/^export default/gm, '``$&``')
                 const output = livescript.compile(cod, options)
-            // console.log(id, output.code)
                 return {
                     code: output.code,
                     map: output.map.toString()
                 }
+
+              // var style = /\<style.*?lang=qcs.*?\>([\s\S]+?)\<\/style\>/
+              // var lse = /\<script.*?lang=ls.*?\>([\s\S]+?)\<\/script\>/
+              // data.e(lse, '').e(style, function(i, m){ return '<style>' + u.qcs(m) + '</style>' })
             }
             if (/\.qcs/.test(id)) {
-                console.log(id)
+                console.log(id, code)
 
                 var oldCssText = code
                 var newCssText = oldCssText

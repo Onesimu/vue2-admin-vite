@@ -37,6 +37,7 @@
     "babel-plugin-dynamic-import-node": "2.3.3",
     "eslint": "8.27.0",
     "eslint-plugin-vue": "9.7.0",
+    "livescript": "^1.6.0",
     "mockjs": "^1.1.0",
     "postcss": "^8.4.18",
     "sass": "1.56.1",

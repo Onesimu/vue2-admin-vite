@@ -1,5 +1,5 @@
 const livescript = require('livescript')
-const { createFilter } = require('rollup-pluginutils')
+// const { createFilter } = require('rollup-pluginutils')
 const { extname } = require('path')
 
 module.exports = (options = {}) => {
@@ -14,10 +14,10 @@ module.exports = (options = {}) => {
         extensions: ['.ls'],
         ...options
     }
-    const filter = createFilter(options.include, options.exclude)
+    // const filter = createFilter(options.include, options.exclude)
     return {
         transform(code, id) {
-            if (!filter(id) || options.extensions.indexOf(extname(id)) === -1) {
+            if (options.extensions.indexOf(extname(id)) === -1) {
                 return null
             } else {
                 options = { filename: id, outputFilename: id.replace(/\.ls$/,'.js'), ...options }

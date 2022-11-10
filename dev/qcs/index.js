@@ -28,6 +28,8 @@ module.exports = {
     var oldCssText = css.toString();
     var newCssText = oldCssText
     if (oldCssText.includes(': ') && oldCssText.includes(' f: ') && oldCssText.includes(' w: ')) {
+      // o(css, oldCssText)
+      // o(result)
       var c = oldCssText.replace(/bgi:/g, 'background-image:').replace(/lg\(/g, 'linear-gradient(').replace(/\/\*(\s|.)*?\*\//g, '')
       newCssText = qcs(c)
       if (process.env.isMiniprogram) newCssText = newCssText.replace(/px/g, 'rpx')

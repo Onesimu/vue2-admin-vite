@@ -6,6 +6,8 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import compressPlugin from 'vite-plugin-compression'
 // import legacy from '@vitejs/plugin-legacy'
 import qcs from './dev/qcs/index.js'
+// const livescript = require('rollup-plugin-livescript')
+import ls from './dev/ls.js'
 
 // compress: 'gzip' | 'brotli' | 'none'
 function configCompressPlugin(isBuild, compress) {
@@ -44,6 +46,7 @@ export default ({ mode }) => {
     plugins: [
       vue(),
       vueJsx(),
+      ls(),
       createSvgIconsPlugin({
         iconDirs: [resolve(process.cwd(), 'src/icons/svg')],
         symbolId: 'icon-[dir]-[name]'

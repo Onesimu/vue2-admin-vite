@@ -76,6 +76,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="qcs">
   .e1 { mb: 30; f: n; w: a; }
 </style>

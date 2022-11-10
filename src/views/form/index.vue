@@ -1,85 +1,101 @@
 <template>
-  <div class="app-container">
-    <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="Activity name">
-        <el-input v-model="form.name" />
-      </el-form-item>
-      <el-form-item label="Activity zone">
-        <el-select v-model="form.region" placeholder="please select your zone">
-          <el-option label="Zone one" value="shanghai" />
-          <el-option label="Zone two" value="beijing" />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="Activity time">
-        <el-col :span="11">
-          <el-date-picker v-model="form.date1" type="date" placeholder="Pick a date" style="width: 100%;" />
-        </el-col>
-        <el-col :span="2" class="line">-</el-col>
-        <el-col :span="11">
-          <el-time-picker v-model="form.date2" type="fixed-time" placeholder="Pick a time" style="width: 100%;" />
-        </el-col>
-      </el-form-item>
-      <el-form-item label="Instant delivery">
-        <el-switch v-model="form.delivery" />
-      </el-form-item>
-      <el-form-item label="Activity type">
-        <el-checkbox-group v-model="form.type">
-          <el-checkbox label="Online activities" name="type" />
-          <el-checkbox label="Promotion activities" name="type" />
-          <el-checkbox label="Offline activities" name="type" />
-          <el-checkbox label="Simple brand exposure" name="type" />
-        </el-checkbox-group>
-      </el-form-item>
-      <el-form-item label="Resources">
-        <el-radio-group v-model="form.resource">
-          <el-radio label="Sponsor" />
-          <el-radio label="Venue" />
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="Activity form">
-        <el-input v-model="form.desc" type="textarea" />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">Create</el-button>
-        <el-button @click="onCancel">Cancel</el-button>
-      </el-form-item>
-    </el-form>
+  <div :class="{'page-compact':crud.pageOptions.compact}">
+    <d2-crud-x ref="d2Crud" v-bind="_crudProps" v-on="_crudListeners" @detail="detail">
+      <div slot="header">
+        <crud-search ref="search" :options="crud.searchOptions" @submit="handleSearch" />
+        <el-button-group>
+          <el-button size="small" type="primary" @click="addRow"><i class="el-icon-plus" />全部标记为已读</el-button>
+        </el-button-group>
+        <!-- <crud-toolbar v-bind="_crudToolbarProps" v-on="_crudToolbarListeners"/> -->
+      </div>
+    </d2-crud-x>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
+  const crudOptions = (vm) => { // vm即this
     return {
-      form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+      columns: [{
+          title: '消息类型',
+          key: 'id',
+          search: true,
+          type: 'select', // 字段类型为选择框
+          dict: { // 数据字典配置， 供select等组件通过value匹配label
+            data: [ // 本地数据字典，若data为null，则通过http请求获取远程数据字典
+              { value: '0', label: '系统消息' },
+              { value: '1', label: '供应商消息' },
+            ]
+          }
+        },
+        {
+          title: '订单金额',
+          key: 'title',
+          search: {}, // 启用查询
+          type: 'select', // 字段类型为选择框
+        },
+        {
+          title: '下单时间',
+          key: 'display_time',
+          type: 'date', // 字段类型为选择框
+        },
+        {
+          title: '阅读状态',
+          key: 'status',
+          search: {
+            disabled: false,
+          }, // 启用查询
+          type: 'select', // 字段类型为选择框
+          dict: { // 数据字典配置， 供select等组件通过value匹配label
+            data: [ // 本地数据字典，若data为null，则通过http请求获取远程数据字典
+              { value: '0', label: '未读' },
+              { value: '1', label: '已读' },
+            ]
+          }
+        }
+      ],
+      rowHandle: {
+        width: 100,
+        view: {
+          show: false
+        },
+        edit: {
+          show: false,
+        },
+        remove: {
+          show: false
+        },
+        custom: [ //自定义按钮
+          {
+            icon: 'el-icon-view',
+            text: '阅读',
+            emit: 'detail',
+            size: 'mini',
+          }
+        ],
       }
     }
-  },
-  methods: {
-    onSubmit() {
-      this.$message('submit!')
-    },
-    onCancel() {
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
-      })
+  }
+
+  import { d2CrudPlus } from 'd2-crud-plus'
+  // import { AddObj, GetList, UpdateObj, DelObj } from './api' //查询添加修改删除的http请求接口
+
+  import { getList } from '@/api/table'
+  export default {
+    mixins: [d2CrudPlus.crud], // 最核心部分，继承d2CrudPlus.crud
+    methods: {
+      getCrudOptions() { return crudOptions(this) },
+      pageRequest(query) { return getList(query) }, // 数据请求
+      // addRequest (row) { return AddObj(row) }, // 添加请求
+      // updateRequest (row) {return UpdateObj(row)},// 修改请求
+      // delRequest (row) {return DelObj(row.id)}// 删除请求
+      // 还可以覆盖d2CrudPlus.crud中的方法来实现你的定制化需求
+      detail(e) {
+        console.log(e.row)
+        // this.$router.push('/order/detail')
+        this.$alert('<strong>This is <i>HTML</i> string</strong><br>' + e.row.title, 'HTML String', {
+          dangerouslyUseHTMLString: true
+        })
+      }
     }
   }
-}
 </script>
-
-<style scoped>
-.line{
-  text-align: center;
-}
-</style>
-

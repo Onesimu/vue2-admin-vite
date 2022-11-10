@@ -10,6 +10,13 @@
   const name = store.getters.name
   console.log(name)
 </script>
+ 
+<script>
+  // import mixins from './mixins'
+  // export default {
+  //     mixins: [mixins]
+  // }
+</script>  
 
 <style lang="scss" scoped>
 .dashboard {

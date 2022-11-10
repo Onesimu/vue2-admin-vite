@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
   const crudOptions = (vm) => { // vm即this
     return {
       columns: [{
@@ -77,7 +77,6 @@
   }
 
   import { d2CrudPlus } from 'd2-crud-plus'
-  // import { AddObj, GetList, UpdateObj, DelObj } from './api' //查询添加修改删除的http请求接口
 
   import { getList } from '@/api/table'
   export default {
@@ -85,16 +84,8 @@
     methods: {
       getCrudOptions() { return crudOptions(this) },
       pageRequest(query) { return getList(query) }, // 数据请求
-      // addRequest (row) { return AddObj(row) }, // 添加请求
-      // updateRequest (row) {return UpdateObj(row)},// 修改请求
-      // delRequest (row) {return DelObj(row.id)}// 删除请求
-      // 还可以覆盖d2CrudPlus.crud中的方法来实现你的定制化需求
       detail(e) {
-        console.log(e.row)
         // this.$router.push('/order/detail')
-        this.$alert('<strong>This is <i>HTML</i> string</strong><br>' + e.row.title, 'HTML String', {
-          dangerouslyUseHTMLString: true
-        })
       }
     }
   }

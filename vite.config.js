@@ -38,7 +38,7 @@ function configCompressPlugin(isBuild, compress) {
 
 export default ({ mode }) => {
   const isBuild = mode === 'production' // mode == production
-  const port = loadEnv(mode, process.cwd()).PORT || 9528 // dev port
+  const port = loadEnv(mode, process.cwd()).PORT || 3000 // dev port
   return defineConfig({
     plugins: [
       // createVuePlugin(),

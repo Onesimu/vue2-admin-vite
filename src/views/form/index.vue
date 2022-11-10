@@ -13,7 +13,13 @@
 </template>
 
 <script setup>
-  const crudOptions = (vm) => { // vm即this
+  const detail = (e) => {
+    console.log(e)
+  }
+</script>
+
+<script>
+    const crudOptions = (vm) => { // vm即this
     return {
       columns: [{
           title: '消息类型',
@@ -28,18 +34,18 @@
           }
         },
         {
-          title: '订单金额',
+          title: '金额',
           key: 'title',
           search: {}, // 启用查询
           type: 'select', // 字段类型为选择框
         },
         {
-          title: '下单时间',
+          title: '时间',
           key: 'display_time',
           type: 'date', // 字段类型为选择框
         },
         {
-          title: '阅读状态',
+          title: '状态',
           key: 'status',
           search: {
             disabled: false,
@@ -77,16 +83,12 @@
   }
 
   import { d2CrudPlus } from 'd2-crud-plus'
-
   import { getList } from '@/api/table'
   export default {
-    mixins: [d2CrudPlus.crud], // 最核心部分，继承d2CrudPlus.crud
+    mixins: [d2CrudPlus.crud],
     methods: {
       getCrudOptions() { return crudOptions(this) },
-      pageRequest(query) { return getList(query) }, // 数据请求
-      detail(e) {
-        // this.$router.push('/order/detail')
-      }
+      pageRequest(query) { return getList(query) },
     }
   }
 </script>

@@ -65,7 +65,6 @@ export default ({ mode }) => {
     base: '/',
     server: {
       port,
-      // open: true,
       hmr: { overlay: false }
     },
     // css: {

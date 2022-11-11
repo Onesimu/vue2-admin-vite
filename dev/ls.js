@@ -1,59 +1,63 @@
 const livescript = require('livescript')
-import { qcs } from './qcs/qcs.js'
+import {qcs } from './qcs/qcs.js'
 
 module.exports = (options = {}) => {
-    options = {
-        bare: true,
-        header: false,
-        const: true,
-        json: false,
-        warn: true,
-        map: 'linked',
-        sourceMap: true,
-        extensions: ['.ls'],
-        ...options
-    }
-    return {
-        transform(code, id) {
-            if (/\.ls$/.test(id)) {
-                options = { filename: id, outputFilename: id.replace(/\.ls$/,'.js'), ...options }
-                const imp = code.match(/^import .+/gm).t('\n')
-                const cod = code.replace(/^\s*[\/]{2}/gm, '#')
-                  // .e(/^import .+/gm, '``$&``')
-                  .e(/^import .+/gm, '')
-                  .e(/^export default/gm, '``$&``')
-                const output = livescript.compile(cod, options)
-                const data = output.code.match(/^var .+/gm).t(',').e('var', '').e(';', '')
-                const code3 = `
+  options = {
+    bare: true,
+    header: false,
+    const: true,
+    json: false,
+    warn: true,
+    map: 'linked',
+    sourceMap: true,
+    extensions: ['.ls'],
+    ...options
+  }
+  return {
+    transform(code, id) {
+      if (/\.ls$/.test(id)) {
+        options = {
+          filename: id,
+          outputFilename: id.replace(/\.ls$/, '.js'),
+          ...options
+        }
+        const imp = code.match(/^import .+/gm).t('\n')
+        const cod = code.replace(/^\s*[\/]{2}/gm, '#')
+          // .e(/^import .+/gm, '``$&``')
+          .e(/^import .+/gm, '')
+          .e(/^export default/gm, '``$&``')
+        const output = livescript.compile(cod, options)
+        const data = output.code.match(/^var .+/gm).t(',').e('var', '').e(';', '')
+        const code3 = `
                   ${imp}
                   export default {
                     setup(){
-                        ${output.code}
-                        return {${data}}
+                      ${output.code}
+                      return {${data}}
                     }
                   }
                 `
-                return {
-                    code: code3,
-                    map: output.map.toString()
-                }
-            }
-            if (/\.scss/.test(id)) {
-
-                var oldCssText = code
-                var newCssText = oldCssText
-                if (oldCssText.includes(': ') && oldCssText.includes(' f: ') && oldCssText.includes(' w: ')) {
-                  var c = oldCssText.replace(/bgi:/g, 'background-image:').replace(/lg\(/g, 'linear-gradient(').replace(/\/\*(\s|.)*?\*\//g, '')
-                  newCssText = qcs(c)
-                  if (process.env.isMiniprogram) newCssText = newCssText.replace(/px/g, 'rpx')
-                }
-
-                return {
-                    code: newCssText,
-                    map: {}
-                }
-
-            }
+        return {
+          code: code3,
+          map: output.map.toString()
         }
+      }
+      if (/\.scss/.test(id)) {
+
+        var oldCssText = code
+        var newCssText = oldCssText
+        if (oldCssText.includes(': ') && oldCssText.includes(' f: ') && oldCssText.includes(' w: ')) {
+          var c = oldCssText.replace(/bgi:/g, 'background-image:').replace(/lg\(/g, 'linear-gradient(').replace(/\/\*(\s|.)*?\*\//g, '')
+          newCssText = qcs(c)
+          if (process.env.isMiniprogram) newCssText = newCssText.replace(/px/g, 'rpx')
+        }
+
+        return {
+          code: newCssText,
+          map: {}
+        }
+
+      }
     }
+  }
 }

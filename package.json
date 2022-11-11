@@ -39,7 +39,6 @@
     "eslint-plugin-vue": "9.7.0",
     "livescript": "^1.6.0",
     "mockjs": "^1.1.0",
-    "postcss": "^7",
     "pug": "^3.0.2",
     "sass": "1.56.1",
     "sass-loader": "^13.0.2",

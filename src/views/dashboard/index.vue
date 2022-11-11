@@ -30,6 +30,6 @@ export default {
   export default {}
 </script>  -->
  
-<style lang1="qcs" scoped>
+<style lang="scss" scoped>
   .e2 { f: 20; w: 80; bg: green; }
 </style>

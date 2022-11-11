@@ -29,7 +29,7 @@ module.exports = (options = {}) => {
               // var lse = /\<script.*?lang=ls.*?\>([\s\S]+?)\<\/script\>/
               // data.e(lse, '').e(style, function(i, m){ return '<style>' + u.qcs(m) + '</style>' })
             }
-            if (/\.qcs$/.test(id)) {
+            if (/\.scss/.test(id)) {
                 console.log(id, code)
 
                 var oldCssText = code

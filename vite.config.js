@@ -5,8 +5,8 @@ import vueJsx from '@vitejs/plugin-vue2-jsx'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import compressPlugin from 'vite-plugin-compression'
 // import legacy from '@vitejs/plugin-legacy'
-import qcs from './dev/qcs/index.js'
-// const livescript = require('rollup-plugin-livescript')
+import './dev/qcs/u.js'
+// import 'https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/u.js'
 import ls from './dev/ls.js'
 
 // compress: 'gzip' | 'brotli' | 'none'

@@ -16,14 +16,10 @@ div.e2 hello {{name}}
 
 <script lang="ls" setup>
 import store from '@/store'
-export default {
-  setup: -> 
-    name = store.getters.name
-    // name = 'adfja'
-    console.log 1
-    console.log(name)
-    {name}
-}
+name = store.getters.name
+// name = 'adfja'
+console.log 1
+console.log(name)
 </script>
 
 <!-- <script lang="ls">
@@ -31,5 +27,5 @@ export default {
 </script>  -->
  
 <style lang="scss" scoped>
-  .e2 { f: 20; w: 80; bg: green; }
+  .e2 { f: 20; w: 180; bg: green; }
 </style>

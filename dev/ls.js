@@ -4,8 +4,8 @@ import { qcs } from './qcs/qcs.js'
 module.exports = (options = {}) => {
     options = {
         bare: true,
-        header: true,
-        const: false,
+        header: false,
+        const: true,
         json: false,
         warn: true,
         map: 'linked',
@@ -17,11 +17,25 @@ module.exports = (options = {}) => {
         transform(code, id) {
             if (/\.ls$/.test(id)) {
                 options = { filename: id, outputFilename: id.replace(/\.ls$/,'.js'), ...options }
-                const cod = code.replace(/^\s*[\/]{2}/gm, '#').e(/^import .+/gm, '``$&``').e(/^export default/gm, '``$&``')
+                const imp = code.match(/^import .+/gm).t('\n')
+                const cod = code.replace(/^\s*[\/]{2}/gm, '#')
+                  // .e(/^import .+/gm, '``$&``')
+                  .e(/^import .+/gm, '')
+                  .e(/^export default/gm, '``$&``')
                 const output = livescript.compile(cod, options)
                 // console.log(output.code)
+                const data = output.code.match(/^var .+/gm).t(',').e('var', '').e(';', '')
+                const code3 = `
+                  ${imp}
+                  export default {
+                    setup(){
+                        ${output.code}
+                        return {${data}}
+                    }
+                  }
+                `
                 return {
-                    code: output.code,
+                    code: code3,
                     map: output.map.toString()
                 }
 

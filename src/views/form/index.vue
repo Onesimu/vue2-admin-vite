@@ -12,83 +12,79 @@
   </div>
 </template>
 
-<script setup>
-  const detail = (e) => {
-    console.log(e)
-  }
-</script>
+<!-- <script setup lang=ls>
+  const detail = console.log
+</script> -->
 
-<script>
-    const crudOptions = (vm) => { // vm即this
-    return {
-      columns: [{
-          title: '消息类型',
-          key: 'id',
-          search: true,
-          type: 'select', // 字段类型为选择框
-          dict: { // 数据字典配置， 供select等组件通过value匹配label
-            data: [ // 本地数据字典，若data为null，则通过http请求获取远程数据字典
-              { value: '0', label: '系统消息' },
-              { value: '1', label: '供应商消息' },
-            ]
-          }
-        },
-        {
-          title: '金额',
-          key: 'title',
-          search: {}, // 启用查询
-          type: 'select', // 字段类型为选择框
-        },
-        {
-          title: '时间',
-          key: 'display_time',
-          type: 'date', // 字段类型为选择框
-        },
-        {
-          title: '状态',
-          key: 'status',
-          search: {
-            disabled: false,
-          }, // 启用查询
-          type: 'select', // 字段类型为选择框
-          dict: { // 数据字典配置， 供select等组件通过value匹配label
-            data: [ // 本地数据字典，若data为null，则通过http请求获取远程数据字典
-              { value: '0', label: '未读' },
-              { value: '1', label: '已读' },
-            ]
-          }
-        }
-      ],
-      rowHandle: {
-        width: 100,
-        view: {
-          show: false
-        },
-        edit: {
-          show: false,
-        },
-        remove: {
-          show: false
-        },
-        custom: [ //自定义按钮
+<script lang=ls>
+crudOptions = (vm) ->
+  {
+    columns: [
+      {
+        title: '消息类型'
+        key: 'id'
+        search: true
+        type: 'select'
+        dict: data: [
           {
-            icon: 'el-icon-view',
-            text: '阅读',
-            emit: 'detail',
-            size: 'mini',
+            value: '0'
+            label: '系统消息'
           }
-        ],
+          {
+            value: '1'
+            label: '客户消息'
+          }
+        ]
       }
-    }
+      {
+        title: '金额'
+        key: 'title'
+        search: {}
+        type: 'select'
+      }
+      {
+        title: '时间'
+        key: 'display_time'
+        type: 'date'
+      }
+      {
+        title: '状态'
+        key: 'status'
+        search: disabled: false
+        type: 'select'
+        dict: data: [
+          {
+            value: '0'
+            label: '未读'
+          }
+          {
+            value: '1'
+            label: '已读'
+          }
+        ]
+      }
+    ]
+    rowHandle:
+      width: 100
+      view: show: false
+      edit: show: false
+      remove: show: false
+      custom: [ {
+        icon: 'el-icon-view'
+        text: '阅读'
+        emit: 'detail'
+        size: 'mini'
+      } ]
   }
 
-  import { d2CrudPlus } from 'd2-crud-plus'
-  import { getList } from '@/api/table'
-  export default {
-    mixins: [d2CrudPlus.crud],
-    methods: {
-      getCrudOptions() { return crudOptions(this) },
-      pageRequest(query) { return getList(query) },
-    }
+import { d2CrudPlus } from 'd2-crud-plus'
+import { getList } from '@/api/table'
+export default {
+  mixins: [d2CrudPlus.crud]
+  methods: {
+    getCrudOptions: -> crudOptions this
+    pageRequest: getList
+    detail: console.log
   }
+}
 </script>

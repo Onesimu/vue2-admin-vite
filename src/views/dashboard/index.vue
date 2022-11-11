@@ -17,9 +17,7 @@ div.e2 hello {{name}}
 <script lang="ls" setup>
 import store from '@/store'
 name = store.getters.name
-// name = 'adfja'
-console.log 1
-console.log(name)
+o name
 </script>
 
 <!-- <script lang="ls">

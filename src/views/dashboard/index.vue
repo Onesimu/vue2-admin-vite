@@ -22,7 +22,7 @@ export default {
     // name = 'adfja'
     console.log 1
     console.log(name)
-    {name: name}
+    {name}
 }
 </script>
 

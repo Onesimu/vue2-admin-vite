@@ -21,26 +21,41 @@ module.exports = (options = {}) => {
           outputFilename: id.replace(/\.ls$/, '.js'),
           ...options
         }
-        const imp = code.match(/^import .+/gm).t('\n')
-        const cod = code.replace(/^\s*[\/]{2}/gm, '#')
+        const imp = code.match(/^import .+/gm)?.t('\n') || ''
+
+        if (id.i('setup=true')) {
+           const cod = code.replace(/^\s*[\/]{2}/gm, '#')
           // .e(/^import .+/gm, '``$&``')
-          .e(/^import .+/gm, '')
-          .e(/^export default/gm, '``$&``')
-        const output = livescript.compile(cod, options)
-        const data = output.code.match(/^var .+/gm).t(',').e('var', '').e(';', '')
-        const code3 = `
-                  ${imp}
-                  export default {
-                    setup(){
-                      ${output.code}
-                      return {${data}}
+            .e(/^import .+/gm, '')
+            .e(/^export default/gm, '``$&``')
+          const output = livescript.compile(cod, options)
+          const data = output.code.match(/^var .+/gm)?.t(',').e('var', '').e(';', '')
+          const code3 = `
+                    ${imp}
+                    export default {
+                      setup(){
+                        ${output.code}
+                        return {${data}}
+                      }
                     }
-                  }
-                `
-        return {
-          code: code3,
-          map: output.map.toString()
+                  `
+          return {
+            code: code3,
+            map: output.map.toString()
+          }
         }
+
+        const cod = code.replace(/^\s*[\/]{2}/gm, '#')
+          .e(/^import .+/gm, '``$&``')
+            .e(/^export default/gm, '``$&``')
+          const output = livescript.compile(cod, options)
+          // const data = output.code.match(/^var .+/gm)?.t(',').e('var', '').e(';', '')
+          const code3 = output.code
+          return {
+            code: code3,
+            map: output.map.toString()
+          }
+
       }
       if (/\.scss/.test(id)) {
 

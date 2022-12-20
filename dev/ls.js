@@ -20,14 +20,14 @@ module.exports = (options = {}) => {
       if (id.i('qcs=')) {
         const content = fs.readFileSync(id.split('?')[0], {encoding:'utf8', flag:'r'})
         const style = content.match(/\<style qcs.*?\>(.+?)\<\/style\>/s)[1]
-        o(id, style)
+        // o(id, style)
         var oldCssText = style
         var newCssText = oldCssText
-        if (oldCssText.includes(': ') && oldCssText.n(/\b\w: /)) {
+        // if (oldCssText.includes(': ') && oldCssText.n(/\b\w: /)) {
           var c = oldCssText.replace(/bgi:/g, 'background-image:').replace(/lg\(/g, 'linear-gradient(').replace(/\/\*(\s|.)*?\*\//g, '')
           newCssText = qcs(c)
           if (process.env.isMiniprogram) newCssText = newCssText.replace(/px/g, 'rpx')
-        }
+        // }
         return newCssText
       }
     },

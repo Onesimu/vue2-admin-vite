@@ -1,8 +1,3 @@
-<!-- <template>
-  <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
-  </div>
-</template> -->
 <template lang="pug">
 div.e2 hello {{name}}
 </template>

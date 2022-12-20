@@ -24,6 +24,6 @@ o name
   export default {}
 </script>  -->
  
-<style lang="scss" scoped>
-  .e2 { f: 20; w: 180; bg: green; }
+<style qcs scoped>
+  .e2 { f: 20 w: 180 bg: green }
 </style>

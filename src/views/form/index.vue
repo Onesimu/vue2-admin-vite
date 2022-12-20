@@ -1,24 +1,20 @@
 <template>
-  <div :class="{'page-compact':crud.pageOptions.compact}">
-    <d2-crud-x ref="d2Crud" v-bind="_crudProps" v-on="_crudListeners" @detail="detail">
-      <div slot="header">
-        <crud-search ref="search" :options="crud.searchOptions" @submit="handleSearch" />
-        <el-button-group>
-          <el-button size="small" type="primary" @click="addRow"><i class="el-icon-plus" />全部标记为已读</el-button>
-        </el-button-group>
-        <!-- <crud-toolbar v-bind="_crudToolbarProps" v-on="_crudToolbarListeners"/> -->
-      </div>
-    </d2-crud-x>
-  </div>
+    <fs-crud ref="crudRef" v-bind="crudBinding"/>
 </template>
 
-<!-- <script setup lang=ls>
-  const detail = console.log
-</script> -->
+<script>
+  import { getList } from '@/api/table'
+    import {defineComponent,onMounted} from "vue";
+    // import createCrudOptions from "./crud";
+    import { useFs} from "@fast-crud/fast-crud";
 
-<script lang=ls>
-crudOptions = (vm) ->
-  {
+    function createCrudOptions({expose}) {
+    return {
+        crudOptions: {
+            //请求配置
+            request: {
+                pageRequest: getList, // 列表数据请求
+            },
     columns: [
       {
         title: '消息类型'
@@ -75,16 +71,39 @@ crudOptions = (vm) ->
         emit: 'detail'
         size: 'mini'
       } ]
-  }
 
-import { d2CrudPlus } from 'd2-crud-plus'
-import { getList } from '@/api/table'
-export default {
-  mixins: [d2CrudPlus.crud]
-  methods: {
-    getCrudOptions: -> crudOptions this
-    pageRequest: getList
-    detail: console.log
-  }
+        },
+    };
 }
+
+    export default defineComponent({
+        name: "MyFirstCrud", // 实际开发中可以修改一下name
+        setup() {
+
+            // // crud组件的ref
+            // const crudRef = ref();
+            // // crud 配置的ref
+            // const crudBinding = ref();
+            // // 暴露的方法
+            // const {crudExpose} = useExpose({crudRef, crudBinding});
+            // // 你的crud配置
+            // const {crudOptions} = createCrudOptions({crudExpose});
+            // // 初始化crud配置
+            // const {resetCrudOptions , appendCrudBinding} = useCrud({crudExpose, crudOptions});
+
+            //  =======以上为fs的初始化代码=========
+            //  =======你可以简写为下面这一行========
+            
+            const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions });
+            
+            // 页面打开后获取列表数据
+            onMounted(() => {
+                crudExpose.doRefresh();
+            });
+            return {
+                crudBinding,
+                crudRef,
+            };
+        },
+    });
 </script>

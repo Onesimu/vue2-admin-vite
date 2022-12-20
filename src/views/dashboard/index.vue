@@ -1,5 +1,5 @@
 <template lang="pug">
-div.e2 hello ${name + 's'}
+div.e2(a='1' b) hello $name s
 </template>
 
 <!-- <script setup>

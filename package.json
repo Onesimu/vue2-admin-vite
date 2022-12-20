@@ -23,7 +23,7 @@
     "vuex": "latest"
   },
   "devDependencies": {
-            "@babel/preset-env": "7.20.2",
+    "@babel/preset-env": "7.20.2",
     "@vitejs/plugin-legacy": "3.0.1",
     "@vitejs/plugin-vue": "latest",
     "@vitejs/plugin-vue-jsx": "latest",
@@ -33,7 +33,7 @@
     "sass": "latest",
     "sass-loader": "latest",
     "svgo": "latest",
-        "vite": "4.0.2",
+    "vite": "4.0.2",
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-svg-icons": "^2.0.1"
   },

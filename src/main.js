@@ -12,10 +12,8 @@ import '@/styles/icon.css'
 
 import SvgIcon from '@/components/SvgIcon'// svg component
 
-if (process.env.NODE_ENV === 'production') {
-  const { mockXHR } = require('../mock')
-  mockXHR()
-}
+import { setupProdMockServer } from '../mock/mock.js'
+setupProdMockServer(import.meta.env.VITE_APP_BASE_API)
 
 const app = createApp(App)
 // 分环境处理

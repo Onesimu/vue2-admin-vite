@@ -1,7 +1,7 @@
 import '../dev/qcs/u.js'
 import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
-// import 'element-plus/lib/theme-chalk/index.css'
+import 'element-plus/dist/index.css'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -11,7 +11,7 @@ import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 import '@/styles/index.scss' // global css
 import '@/styles/icon.css'
 
-// import SvgIcon from '@/components/SvgIcon'// svg component
+import SvgIcon from '@/components/SvgIcon'// svg component
 
 import 'virtual:svg-icons-register' // svg-register
 import { setupProdMockServer } from '../mock/mock.js'
@@ -26,7 +26,7 @@ const app = createApp(App)
 //   }
 //   app.config.devtools = true
 // }
-// app.component('SvgIcon', SvgIcon)
+app.component('SvgIcon', SvgIcon)
 app.use(ElementPlus).use(router).use(store).mount('#app')
 
 // const req = require.context('@/icons/svg', false, /\.svg$/)

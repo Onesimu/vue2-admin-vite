@@ -53,10 +53,6 @@
       overflow: hidden;
     }
 
-    .svg-icon {
-      margin-right: 16px;
-    }
-
     .sub-el-icon {
       margin-right: 12px;
       margin-left: -2px;
@@ -88,6 +84,12 @@
       &:hover {
         background-color: $subMenuHover !important;
       }
+    }
+  }
+
+  .openSidebar {
+    .svg-icon {
+      margin-right: 16px;
     }
   }
 

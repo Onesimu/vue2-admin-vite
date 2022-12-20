@@ -1,5 +1,6 @@
 const livescript = require('livescript')
-import {qcs } from './qcs/qcs.js'
+import { qcs } from './qcs/qcs.js'
+import { srct, dett } from './lsx.js'
 
 module.exports = (options = {}) => {
   options = {
@@ -21,47 +22,41 @@ module.exports = (options = {}) => {
           outputFilename: id.replace(/\.ls$/, '.js'),
           ...options
         }
-        const imp = code.match(/^import .+/gm)?.t('\n') || ''
 
         if (id.i('setup=true')) {
-           const cod = code.replace(/^\s*[\/]{2}/gm, '#')
-          // .e(/^import .+/gm, '``$&``')
-            .e(/^import .+/gm, '')
-            .e(/^export default/gm, '``$&``')
+          const imp = code.match(/^import .+/gm)?.t('\n') || ''
+          const cod = srct(code)
           const output = livescript.compile(cod, options)
-          const data = output.code.match(/^var .+/gm)?.t(',').e('var', '').e(';', '')
+          const sco = dett(output.code)
+          const data = sco.match(/^var .+/gm)?.t(',').e('var', '').e(';', '')
+          const pcod = sco.e(/^\s*(import .+)$/gm, '')
           const code3 = `
                     ${imp}
                     export default {
-                      setup(){
-                        ${output.code}
+                      setup() {
+                        ${pcod}
                         return {${data}}
                       }
                     }
                   `
           return {
             code: code3,
-            map: output.map.toString()
+            map: output.map
           }
         }
 
-        const cod = code.replace(/^\s*[\/]{2}/gm, '#')
-          .e(/^import .+/gm, '``$&``')
-            .e(/^export default/gm, '``$&``')
-          const output = livescript.compile(cod, options)
-          // const data = output.code.match(/^var .+/gm)?.t(',').e('var', '').e(';', '')
-          const code3 = output.code
-          return {
-            code: code3,
-            map: output.map.toString()
-          }
-
+        const cod = srct(code)
+        const output = livescript.compile(cod, options)
+        const sco = dett(output.code)
+        return {
+          code: sco,
+          map: output.map
+        }
       }
       if (/\.scss/.test(id)) {
-
         var oldCssText = code
         var newCssText = oldCssText
-        if (oldCssText.includes(': ') && oldCssText.includes(' f: ') && oldCssText.includes(' w: ')) {
+        if (oldCssText.includes(': ') && oldCssText.n(/\b\w: /)) {
           var c = oldCssText.replace(/bgi:/g, 'background-image:').replace(/lg\(/g, 'linear-gradient(').replace(/\/\*(\s|.)*?\*\//g, '')
           newCssText = qcs(c)
           if (process.env.isMiniprogram) newCssText = newCssText.replace(/px/g, 'rpx')
@@ -69,9 +64,10 @@ module.exports = (options = {}) => {
 
         return {
           code: newCssText,
-          map: {}
+          // map: {}
+           map: null
+            // map: { mappings: '' }
         }
-
       }
     }
   }

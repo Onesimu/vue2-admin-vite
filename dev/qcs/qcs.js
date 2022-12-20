@@ -37,6 +37,7 @@ const dt = {
     btr: 'border-top-right-radius',
     bbr: 'border-bottom-right-radius',
     bbl: 'border-bottom-left-radius',
+    ot: 'outline',
     ol: 'outline',
     f: 'font-size',
     ff: 'font-family',
@@ -61,6 +62,7 @@ const dt = {
     xh: 'max-height',
     lh: 'line-height',
     v: 'vertical-align',
+    vi: 'visibility',
     wh: 'white-space',
     ws: 'word-spacing',
     ls: 'letter-spacing',
@@ -77,7 +79,8 @@ const dt = {
     ac: 'align-content',
     fd: 'flex-direction',
     fr: 'flex-wrap',
-    bx: 'box-sizing'
+    bx: 'box-sizing',
+    fx: 'flex'
   },
   v: {
     a: 'auto',
@@ -87,6 +90,7 @@ const dt = {
     tt: 'transparent',
     cc: 'currentColor',
     n: 'normal',
+    m: 'middle',
     c: 'center',
     no: 'none',
     h: 'hidden',
@@ -106,7 +110,11 @@ const dt = {
     wr: 'wrap',
     if: 'inline-flex',
     cb: 'content-box',
-    bb: 'border-box'
+    bb: 'border-box',
+    spbt: 'space-between',
+    spev: 'space-evenly',
+    spar: 'space-around',
+    fx: 'flex'
   }
 };
 
@@ -178,7 +186,8 @@ const qcs = (e, n) => {
     .t().t('}').n(Boolean).t(i => {
     const [s, v] = i.t('{')
     const s1 = ['_s', s.t()]
-    const v1 = v.t().t(';').t().t(i => i.t(': ').t(i => i.t()))
+    // const v1 = v.t().t(';').t().t(i => i.t(': ').t(i => i.t()))
+    const v1 = (v.t().t(/(\S+):\s?/).t().t(i => i.t().e(';', '')).t((i,t,e) => [i, e[t+1]]).n((i,t) => t % 2 == 0))
     v1.e(s1)
     return u.en(v1)
   })

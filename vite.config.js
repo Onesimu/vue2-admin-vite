@@ -14,7 +14,13 @@ export default ({ mode }) => {
   return defineConfig({
     plugins: [
       ls(),
-      vue(),
+      vue({
+        template: {
+          compilerOptions: {
+            // delimiters: ['${', '}']
+          },
+        }
+      }),
       vueJsx(),
       createSvgIconsPlugin({
         iconDirs: [resolve(process.cwd(), 'src/icons/svg')],

@@ -32,6 +32,10 @@ module.exports = (options = {}) => {
       }
     },
     transform(code, id) {
+      if (id.i('vue&type=template')) {
+        // o(id, code)
+        return code.e(/\${(.+)}/, '{{$1}}').e(/\$(\w+)/, '{{$1}}')
+      }
       if (/\.ls$/.test(id)) {
         options = {
           filename: id,

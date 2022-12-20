@@ -2,7 +2,7 @@
   <div class="http404-container">
     <img
       class="pic-404"
-      src="@/assets/404_images/404.jpg"
+      src="@/assets/404_images/404.png"
       alt="404"
     >
   </div>
@@ -24,7 +24,6 @@ export default {
 .http404-container{
   width: 100%;
   height: 100%;
-  background-color: #ffbe00;
 }
 .pic-404 {
   position: relative;

@@ -3,41 +3,10 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue2'
 import vueJsx from '@vitejs/plugin-vue2-jsx'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import compressPlugin from 'vite-plugin-compression'
 // import legacy from '@vitejs/plugin-legacy'
 import './dev/qcs/u.js'
 // import 'https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/u.js'
 import ls from './dev/ls.js'
-
-// compress: 'gzip' | 'brotli' | 'none'
-function configCompressPlugin(isBuild, compress) {
-  const plugins = []
-  if (!isBuild) return plugins
-  const compressList = compress.split(',')
-  if (compressList.includes('gzip')) {
-    plugins.push(
-      compressPlugin({
-        verbose: true,
-        disable: false,
-        threshold: 10240,
-        algorithm: 'gzip',
-        ext: '.gz'
-      })
-    )
-  }
-  if (compressList.includes('brotli')) {
-    plugins.push(
-      compressPlugin({
-        verbose: true,
-        disable: false,
-        threshold: 10240,
-        algorithm: 'brotliCompress',
-        ext: '.br'
-      })
-    )
-  }
-  return plugins
-}
 
 export default ({ mode }) => {
   const isBuild = mode === 'production' // mode == production
@@ -55,23 +24,15 @@ export default ({ mode }) => {
       //   targets: ['ie >= 11'],
       //   additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
       // }),
-      ...configCompressPlugin(isBuild, 'gzip')
     ],
     resolve: {
       alias: {
         '@': resolve(__dirname, './src')
       }
     },
-    base: '/',
     server: {
       port,
-      hmr: { overlay: false }
     },
-    // css: {
-    //   postcss: {
-    //     plugins: [qcs]
-    //   }
-    // },
     build: {
       outDir: 'dist',
       assetsDir: 'static',
@@ -89,17 +50,6 @@ export default ({ mode }) => {
           }
         }
       },
-      minify: 'terser',
-      terserOptions: {
-        compress: {
-          drop_console: isBuild, // 打包时删除log
-          drop_debugger: isBuild, // 打包时删除debugger
-          pure_funcs: isBuild ? ['console.log'] : []
-        },
-        output: {
-          comments: isBuild // 去掉注释
-        }
-      }
     }
   })
 }

@@ -112,7 +112,7 @@
         }
 
         .sub-el-icon {
-          margin-left: 19px;
+          margin-left: 18px;
         }
       }
     }
@@ -128,7 +128,7 @@
         }
 
         .sub-el-icon {
-          margin-left: 19px;
+          margin-left: 18px;
         }
 
         .el-submenu__icon-arrow {
@@ -186,6 +186,9 @@
 }
 
 // when menu collapsed
+.el-menu-item [class^=el-icon-], .el-submenu [class^=el-icon-]{
+  width: auto;
+}
 .el-menu--vertical {
   &>.el-menu {
     .svg-icon {

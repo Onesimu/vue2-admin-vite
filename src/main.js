@@ -1,39 +1,34 @@
 import { createApp } from 'vue'
-// import './d2.js'
-import '../dev/qcs/u.js'
-
-import 'normalize.css/normalize.css' // A modern alternative to CSS resets
-
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-// import locale from 'element-ui/lib/locale/lang/en' // lang i18n
-
-import '@/styles/index.scss' // global css
-
+import ElementPlus from 'element-plus'
+// import 'element-plus/lib/theme-chalk/index.css'
 import App from './App.vue'
-import store from './store'
 import router from './router'
-
-import '@/icons' // icon
-import 'virtual:svg-icons-register' // svg-register
+import store from './store'
 import '@/permission' // permission control
 
-import { setupProdMockServer } from '@/utils/mockProdServer'
-setupProdMockServer(import.meta.env.VITE_APP_BASE_API)
+import 'normalize.css/normalize.css' // A modern alternative to CSS resets
+import '@/styles/index.scss' // global css
+import '@/styles/icon.css'
 
-// set ElementUI lang to EN
-// Vue.use(ElementUI, { locale })
-// 如果想要中文版 element-ui，按如下方式声明
-// Vue.use(ElementUI)
+import SvgIcon from '@/components/SvgIcon'// svg component
 
-// Vue.config.productionTip = false
-
-// new Vue({
-//   el: '#app',
-//   router,
-//   store,
-//   render: h => h(App)
-// })
+if (process.env.NODE_ENV === 'production') {
+  const { mockXHR } = require('../mock')
+  mockXHR()
+}
 
 const app = createApp(App)
-app.mount('#app')
+// 分环境处理
+// if (process.env.NODE_ENV === 'development') {
+//   if ('__VUE_DEVTOOLS_GLOBAL_HOOK__' in window) {
+//   // 这里__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue赋值一个createApp实例
+//     window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app
+//   }
+//   app.config.devtools = true
+// }
+app.component('SvgIcon', SvgIcon)
+app.use(ElementPlus).use(router).use(store).mount('#app')
+
+const req = require.context('@/icons/svg', false, /\.svg$/)
+const requireAll = requireContext => requireContext.keys().map(requireContext)
+requireAll(req)

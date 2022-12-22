@@ -12,61 +12,23 @@
     return {
   crudOptions: {
     request: { pageRequest: getList },
-    columns: [
-      {
-        title: '消息类型',
-        key: 'id',
-        search: true,
-        type: 'select',
-        dict: {
-          data: [
-            {
-              value: '0',
-              label: '系统消息'
-            }, {
-              value: '1',
-              label: '客户消息'
-            }
-          ]
-        }
-      }, {
+    columns: {
+     title: {
         title: '金额',
         key: 'title',
         search: {},
         type: 'select'
-      }, {
+      }, 
+      display_time: {
         title: '时间',
         key: 'display_time',
         type: 'date'
-      }, {
+      }, 
+      status: {
         title: '状态',
         key: 'status',
-        search: { disabled: false },
         type: 'select',
-        dict: {
-          data: [
-            {
-              value: '0',
-              label: '未读'
-            }, {
-              value: '1',
-              label: '已读'
-            }
-          ]
-        }
       }
-    ],
-    rowHandle: {
-      width: 100,
-      view: { show: false },
-      edit: { show: false },
-      remove: { show: false },
-      custom: [{
-        icon: 'el-icon-view',
-        text: '阅读',
-        emit: 'detail',
-        size: 'mini'
-      }]
     }
   }
 }

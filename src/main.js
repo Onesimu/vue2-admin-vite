@@ -58,7 +58,13 @@ app.use(FastCrud, {
                transformRes: ({ res }) => {
                    //将pageRequest的返回数据，转换为fast-crud所需要的格式
                    //return {records,currentPage,pageSize,total};
-                   return  {...res}
+                   return  { //返回结果
+            current: 'current', // 当前页码 ret.data.current
+            size: 'size', // 每页条数，ret.data.size,
+            //size: (data) => { return data.size }, //你也可以配置一个方法，自定义返回
+            total: res.data.total, // 总记录数 ret.data.total
+            records: res.data.items// 列表数组 ret.data.records
+          }
                }
            },
            //你可以在此处配置你的其他crudOptions公共配置

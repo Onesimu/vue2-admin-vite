@@ -10,6 +10,9 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
+    "@fast-crud/fast-crud": "^1.7.1",
+    "@fast-crud/fast-extends": "^1.7.2",
+    "@fast-crud/ui-element": "^1.7.2",
     "axios": "latest",
     "core-js": "latest",
     "element-plus": "latest",
@@ -28,8 +31,8 @@
     "@vitejs/plugin-vue": "latest",
     "@vitejs/plugin-vue-jsx": "latest",
     "livescript": "latest",
-    "pug": "^3.0.2",
     "mockjs": "latest",
+    "pug": "^3.0.2",
     "sass": "latest",
     "sass-loader": "latest",
     "svgo": "latest",

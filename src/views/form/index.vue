@@ -1,5 +1,7 @@
 <template>
-    <fs-crud ref="crudRef" v-bind="crudBinding"/>
+  <div class=e1>
+  <fs-crud ref="crudRef" v-bind="crudBinding" />
+  </div>
 </template>
 
 <script>
@@ -66,3 +68,7 @@
         },
     });
 </script>
+
+<style qcs scoped>
+  .e1 { h: 100vh }
+</style>

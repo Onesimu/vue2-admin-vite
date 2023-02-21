@@ -19,8 +19,9 @@ module.exports = (options = {}) => {
     load(id) {
       if (id.i('qcs=')) {
         const content = fs.readFileSync(id.split('?')[0], {encoding:'utf8', flag:'r'})
-        const style = content.match(/\<style qcs.*?\>(.+?)\<\/style\>/s)[1]
-        // o(id, style)
+        const mat = id.i('scoped') && (/<style qcs scoped.*?>(.+?)<\/style>/s)
+          || (/<style qcs>(.+?)<\/style>/s)
+        const style = content.match(mat)[1]
         var oldCssText = style
         var newCssText = oldCssText
         // if (oldCssText.includes(': ') && oldCssText.n(/\b\w: /)) {
@@ -32,10 +33,10 @@ module.exports = (options = {}) => {
       }
     },
     transform(code, id) {
-      if (id.i('vue&type=template')) {
-        // o(id, code)
-        return code.e(/\${(.+)}/, '{{$1}}').e(/\$(\w+)/, '{{$1}}')
-      }
+      // if (id.i('vue&type=template')) {
+      //   // o(id, code)
+      //   return code.e(/\${(.+)}/, '{{$1}}').e(/\$(\w+)/, '{{$1}}')
+      // }
       if (/\.ls$/.test(id)) {
         options = {
           filename: id,

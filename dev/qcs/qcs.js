@@ -40,7 +40,7 @@ const dt = {
     ot: 'outline',
     ol: 'outline',
     f: 'font-size',
-    ff: 'font-family',
+    ffy: 'font-family',
     fs: 'font-style',
     fw: 'font-weight',
     ta: 'text-align',
@@ -80,7 +80,9 @@ const dt = {
     fd: 'flex-direction',
     fr: 'flex-wrap',
     bx: 'box-sizing',
-    fx: 'flex'
+    fx: 'flex',
+    ff: 'flex-flow',
+    cs: 'cursor'
   },
   v: {
     a: 'auto',
@@ -114,7 +116,8 @@ const dt = {
     spbt: 'space-between',
     spev: 'space-evenly',
     spar: 'space-around',
-    fx: 'flex'
+    fx: 'flex',
+    pt: 'pointer'
   }
 };
 
@@ -165,6 +168,7 @@ const se = {
   ':f ': '::first-letter',
   ':l ': '::first-line',
   ':h ': ':hover',
+  ':fo ': ':focus',
   ':c ': ':checked',
   ':r ': ':root',
   ':e ': ':empty',
@@ -182,7 +186,8 @@ const qcs = (e, n) => {
     dt.v = u.en(dt.v, -1)
   }
 
-  const l = e.e(/bgi:/g, 'background-image:').e(/lg\(/g, 'linear-gradient(').e(/\/\*(\s|.)*?\*\//g, '').replace(/;base64,/g, '%%%%%%')
+  const l = e.e(/bgi:/g, 'background-image:').e(/lg\(/g, 'linear-gradient(').e(/\/\*(\s|.)*?\*\//g, '')
+    .replace(/;base64,/g, '%%%%%%').e(/data:image/g, '%%%')
     .t().t('}').n(Boolean).t(i => {
     const [s, v] = i.t('{')
     const s1 = ['_s', s.t()]
@@ -197,7 +202,7 @@ const qcs = (e, n) => {
     if (k == '_s') return [k, (v + ' ').e(se).t()]
     if (k == '_c') return [k, v]
 
-    if (v.i('(')) return [dt.k[k] || k, v]
+    if (v.i('(') && !v.i('var(')) return [dt.k[k] || k, v]
     if (!dt.k[k]) return [k, v]
     else {
       const nv = v.t(' ').t(i => {
@@ -220,7 +225,7 @@ const qcs = (e, n) => {
     return i
   })
   const c = lnc.t(i => i['_s'] + ' { ' + u.en(u.e(i, '_s')).t(i => i.t(': ')).t('; ') + '; }').t('\n')
-  return c.replace(/%%%%%%/g, ';base64,')
+  return c.replace(/%%%%%%/g, ';base64,').e(/%%%/g, 'data:image')
 }
 
 export {qcs}

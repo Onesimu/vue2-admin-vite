@@ -19,6 +19,9 @@ o name
   export default {}
 </script>  -->
  
+<style>
+  :root { --color-primary: #409EFF; --bdc: #DCDFE6 }
+</style> 
 <style qcs scoped>
-  .e2 { f: 20 w: 180 bg: green }
+  .e2 { f: 20 w: 180 bg: green bd: 1 s var(--bdc) }
 </style>

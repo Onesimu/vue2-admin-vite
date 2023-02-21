@@ -20,8 +20,8 @@ o name
 </script>  -->
  
 <style>
-  :root { --c: #409EFF; --bdc: #DCDFE6 }
+  :root { --color-primary: #409EFF; --bdc: #DCDFE6 }
 </style> 
 <style qcs scoped>
-  .e2 { bg: --c bd: 1 s --bdc m: 20 ta: c}
+  .e2 { bg: --color-primary bd: 1 s --bdc m: 20 ta: c}
 </style>

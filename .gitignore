@@ -7,6 +7,7 @@ yarn-error.log*
 package-lock.json
 pnpm-lock.yaml
 tests/**/coverage/
+mock/*.json
 
 # Editor directories and files
 .idea

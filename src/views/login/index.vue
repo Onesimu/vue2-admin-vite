@@ -127,7 +127,8 @@ export default {
 
 <style qcs scoped>
   .login-container { h: 100% p: 10% ta: c d: fx jc: c bgc: #eee }
-  :deep(.el-input) { w: a m: 0 10 }
+  :deep(.el-input) { w: 250 m: 0 10 }
   :deep(.el-button) { w: 100% }
   .tips { d: fx jc: spbt mt: 10 }
+  .show-pwd { cs: pt }
 </style>

@@ -2,7 +2,7 @@
   "name": "vue3-admin-template-master",
   "scripts": {
     "dev": "vite",
-    "build:prod": "vite build",
+    "build": "vite build",
     "build:stage": "vite build --mode staging",
     "preview": "vite preview",
     "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
@@ -36,6 +36,7 @@
     "sass": "latest",
     "sass-loader": "latest",
     "svgo": "latest",
+    "terser": "^5.16.6",
     "vite": "4.0.2",
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-svg-icons": "^2.0.1"

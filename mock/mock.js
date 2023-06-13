@@ -1,4 +1,5 @@
-import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer'
+// import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer'
+import { createProdMockServer } from 'vite-plugin-mock/client'
 import table from './table'
 import user from './user'
 

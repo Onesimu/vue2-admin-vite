@@ -40,6 +40,9 @@ export default ({ mode }) => {
     server: {
       port,
     },
+    optimizeDeps: {
+      force: true
+    },
     build: {
       outDir: 'dist',
       assetsDir: 'static',
